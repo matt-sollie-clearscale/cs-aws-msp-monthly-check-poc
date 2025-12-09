@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS MSP Funding Stack Clearscale POC
+Parameters:
+  S3BucketName:
+    Type: String
+    Default: cs-aws-msp-funding-data
+Resources:
+  S3ClientBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3BucketName
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  S3ClientBucketAccessPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref S3BucketName
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - billingreports.amazonaws.com
+                - bcm-data-exports.amazonaws.com
+            Action:
+              - s3:PutObject
+              - s3:GetBucketPolicy
+            Resource: 
+            - !Sub "arn:aws:s3:::${S3BucketName}"
+            - !Sub "arn:aws:s3:::${S3BucketName}/*"
+  # ECRRegistry:
+  #   Type: AWS::ECR::Repository
+  #   Properties:
+  #     RepositoryName: "aws-msp-cur-parser"
+  #     ImageScanningConfiguration:
+  #       ScanOnPush: true
+  #     ImageTagMutability: MUTABLE
+  # ECRRegistryPolicy:
+  #   Type: AWS::ECR::RegistryPolicy
+  #   Properties:
+  #     RegistryId: !Ref ECRRegistry
+  #     PolicyDocument:
+  #       Version: '2012-10-17'
+  #       Statement:
+  #         - Effect: Allow
+  #           Principal:
+  #             Service:
+  #               - lambda.amazonaws.com
+  #           Action:
+  #             - ecr:GetAuthorizationToken
+  #             - ecr:BatchCheckLayerAvailability
+  #             - ecr:GetDownloadUrlForLayer
+  #             - ecr:BatchGetImage
+  #           Resource: "*"
+# Outputs:
+#   ECRRegistry:
+#     Value: !Ref ECRRegistry
+#     Export:
+#       Name: CURParserECRRegistry
+      
+  

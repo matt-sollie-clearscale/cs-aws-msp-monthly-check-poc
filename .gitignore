@@ -1,0 +1,30 @@
+#Terraform
+.terraform
+.terraform.lock.hcl
+auto.tfvars
+
+# Virtual environments
+venv/
+env/
+.venv/
+myenv/
+
+# Environment variable files
+.env
+.env.*
+
+# Compiled/staged Python files
+package/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.zip 
+
+# Installer logs
+*.egg-info/
+.coverage
+
+# Miscellaneous
+.DS_Store
+

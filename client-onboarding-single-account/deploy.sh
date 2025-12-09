@@ -1,0 +1,1 @@
+aws cloudformation deploy --stack-name client-onboarding-single-account --template-file stack.yaml --region us-east-1

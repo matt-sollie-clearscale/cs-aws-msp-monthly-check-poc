@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  S3BucketName:
+    Type: String
+    Default: cs-aws-msp-funding-data
+  CustomerName:
+    Type: String
+    Default: ExampleCustomer
+  MSPName:
+    Type: String
+    Default: Clearscale
+Resources:
+  CURReportDefinition:
+    Type: AWS::BCMDataExports::Export
+    Properties:
+      Export: 
+        DataQuery:
+          QueryStatement: "SELECT product_servicecode FROM COST_AND_USAGE_REPORT"
+          TableConfigurations: 
+            COST_AND_USAGE_REPORT: 
+              INCLUDE_RESOURCES: "FALSE"
+              INCLUDE_SPLIT_COST_ALLOCATION_DATA: "FALSE"
+              TIME_GRANULARITY: "MONTHLY"
+        DestinationConfigurations:
+          S3Destination:
+            S3Bucket: !Ref S3BucketName
+            S3Region: "us-west-2"
+            S3Prefix: !Sub "msp-service-data/${MSPName}/${CustomerName}"
+            S3OutputConfigurations:
+              Compression: "GZIP"
+              Format: "TEXT_OR_CSV"
+              OutputType: "CUSTOM"
+              Overwrite: "OVERWRITE_REPORT"
+        Name: !Ref AWS::AccountId
+        RefreshCadence: 
+          Frequency: "SYNCHRONOUS"

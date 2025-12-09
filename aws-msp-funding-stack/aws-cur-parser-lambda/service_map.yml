@@ -1,0 +1,13 @@
+basic:
+- AWSELB
+- AWSCloudTrail
+- AmazonS3
+- AmazonCloudWatch
+- AmazonVPC
+- AmazonEC2
+medium:
+- AmazonECS
+advanced:
+- AmazonEKS
+- AWSLambda
+- AWSBedrock
