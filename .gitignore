@@ -8,6 +8,7 @@ venv/
 env/
 .venv/
 myenv/
+.vscode/
 
 # Environment variable files
 .env

@@ -146,9 +146,9 @@ The JSON structure aggregates service counts per account and category:
 
 ```json
 {
-  "account_id": {
-    "bill_payer_account_id": {
-      "billing_period": {
+  "msp_name": {
+    "mspcustomer_name": {
+      "account_cur_is_from": {
         "basic": 5,
         "medium": 2,
         "advanced": 1
