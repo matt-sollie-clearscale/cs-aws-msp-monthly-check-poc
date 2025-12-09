@@ -91,9 +91,13 @@ The data is currently exported to an S3 bucket in the AWS-side of the Architectu
 
 ## Configuration
 
+### S3 Bucket Name (Parameter in each CloudFormation Template)
+
+The `stack.yaml` and `lambda.yaml` files define the S3 bucket name for the CUR data and reports. You can modify this file to adjust the bucket name. The name in this repo example may currently exist, and should be changed to a unique name for your environment.
+
 ### Service Map (`service_map.yml`)
 
-The `service_map.yml` file defines how AWS services are categorized. You can modify this file to adjust the classification logic.
+The `service_map.yml` file defines how AWS services are categorized. Modifications to this file will adjust the classification logic in the output to report for next generation service consumption
 
 Example:
 ```yaml
